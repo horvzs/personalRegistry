@@ -14,10 +14,12 @@ import javax.validation.Valid;
 public class PersonController {
 
     private final PersonPersister personPersister;
+    private final PersonProvider personProvider;
 
     @Autowired
-    public PersonController(PersonPersister personPersister) {
+    public PersonController(PersonPersister personPersister, PersonProvider personProvider) {
         this.personPersister = personPersister;
+        this.personProvider = personProvider;
     }
 
     @PostMapping("/person")
@@ -25,4 +27,11 @@ public class PersonController {
     public PersonCreated savePerson(@Valid @RequestBody PersonDto personDto) {
         return personPersister.persistPerson(personDto);
     }
+
+    @GetMapping("/person/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public PersonDto getPerson(@PathVariable Long id) {
+        return personProvider.getPersonById(id);
+    }
+
 }
