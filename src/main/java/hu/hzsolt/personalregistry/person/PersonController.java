@@ -15,11 +15,15 @@ public class PersonController {
 
     private final PersonPersister personPersister;
     private final PersonProvider personProvider;
+    private final PersonRemover personRemover;
 
     @Autowired
-    public PersonController(PersonPersister personPersister, PersonProvider personProvider) {
+    public PersonController(
+            PersonPersister personPersister, PersonProvider personProvider, PersonRemover personRemover
+    ) {
         this.personPersister = personPersister;
         this.personProvider = personProvider;
+        this.personRemover = personRemover;
     }
 
     @PostMapping("/person")
@@ -32,6 +36,12 @@ public class PersonController {
     @ResponseStatus(HttpStatus.OK)
     public PersonDto getPerson(@PathVariable Long id) {
         return personProvider.getPersonById(id);
+    }
+
+    @DeleteMapping("/person/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteGuest(@PathVariable Long id) {
+        personRemover.deletePerson(id);
     }
 
 }
