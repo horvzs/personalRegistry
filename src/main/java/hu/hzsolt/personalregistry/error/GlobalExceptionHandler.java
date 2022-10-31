@@ -59,6 +59,13 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(createErrorResponse(exception, HttpStatus.NOT_FOUND), HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(DuplicateEntryException.class)
+    public ResponseEntity<ErrorResponse> handleDuplicateEntryException(DuplicateEntryException exception) {
+
+        LOGGER.error(exception.getMessage(), exception);
+        return new ResponseEntity<>(createErrorResponse(exception, HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
+    }
+
     private ErrorResponse createErrorResponse(Exception exception, HttpStatus httpStatus) {
         return new ErrorResponse(httpStatus, LocalDateTime.now(), exception.getMessage());
     }
