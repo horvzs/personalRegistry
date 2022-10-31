@@ -36,47 +36,53 @@ public class Address {
         return id;
     }
 
-    public void setId(Long id) {
+    public Address setId(Long id) {
         this.id = id;
+        return this;
     }
 
     public String getZipCode() {
         return zipCode;
     }
 
-    public void setZipCode(String zipCode) {
+    public Address setZipCode(String zipCode) {
         this.zipCode = zipCode;
+        return this;
     }
 
     public String getCity() {
         return city;
     }
 
-    public void setCity(String city) {
+    public Address setCity(String city) {
         this.city = city;
+        return this;
     }
 
     public String getStreet() {
         return street;
     }
 
-    public void setStreet(String street) {
+    public Address setStreet(String street) {
         this.street = street;
+        return this;
     }
 
     public AddressType getAddressType() {
         return addressType;
     }
 
-    public void setAddressType(AddressType addressType) {
+    public Address setAddressType(AddressType addressType) {
         this.addressType = addressType;
+        return this;
     }
 
     public Set<Contact> getContacts() {
         return contacts;
     }
 
-    public void setContacts(Set<Contact> contacts) {
+    public Address setContacts(Set<Contact> contacts) {
         this.contacts = contacts;
+        return this;
     }
 }

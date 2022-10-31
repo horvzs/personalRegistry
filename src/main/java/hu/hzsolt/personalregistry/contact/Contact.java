@@ -29,23 +29,26 @@ public class Contact {
         return id;
     }
 
-    public void setId(Long id) {
+    public Contact setId(Long id) {
         this.id = id;
+        return this;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public Contact setEmail(String email) {
         this.email = email;
+        return this;
     }
 
     public String getPhone() {
         return phone;
     }
 
-    public void setPhone(String phone) {
+    public Contact setPhone(String phone) {
         this.phone = phone;
+        return this;
     }
 }
