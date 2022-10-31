@@ -1,0 +1,101 @@
+###
+# Person elmentése (+)
+POST http://localhost:8080/person
+Content-Type: application/json
+
+{
+  "name": "Depp",
+  "addresses" : [{
+    "zipCode" : 4333,
+    "city" : "Budapest",
+    "street" : "650",
+    "addressType" : "PERMANENT",
+    "contacts" : [{
+      "email" : "teszt@email.com",
+      "phone" : "06301114444"
+    }]
+  },
+    {
+      "zipCode" : 1000,
+      "city" : "aaaaa",
+      "street" : "TesztSaaatreet",
+      "addressType" : "PERMANENT",
+      "contacts" : [{
+        "email" : "tesaazt@email.com",
+        "phone" : "06301114444"
+      }]
+    }
+  ]
+}
+
+###
+# Person módosítása (+)
+PATCH http://localhost:8080/person/1
+Content-Type: application/json
+
+{
+  "name": "Modified Jon",
+  "addresses" : [{
+    "zipCode" : 5000,
+    "city" : "WhoKnows",
+    "street" : "HowKnowsStreet 50",
+    "addressType" : "PERMANENT",
+    "contacts" : [{
+      "email" : "howKnows@email.com",
+      "phone" : "06906664444"
+    }]
+  },
+    {
+      "zipCode" : 3500,
+      "city" : "Szombathely",
+      "street" : "OttaniStreet",
+      "addressType" : "PERMANENT",
+      "contacts" : [{
+        "email" : "nem@email.com",
+        "phone" : "06903333666"
+      }]
+    }
+  ]
+}
+
+###
+
+# Person lekérése (+)
+GET http://localhost:8080/person/1
+
+###
+
+# Person elmentése (-)
+POST http://localhost:8080/person
+Content-Type: application/json
+
+{
+  "name": "Depp",
+  "addresses" : [{
+    "zipCode" : 4333,
+    "city" : "Budapest",
+    "street" : "650",
+    "addressType" : "PERMANENT",
+    "contacts" : [{
+      "email" : "teszt@email.com",
+      "phone" : "06301114444"
+    }]
+  },
+    {
+      "zipCode" : 4333,
+      "city" : "Budapest",
+      "street" : "650",
+      "addressType" : "PERMANENT",
+      "contacts" : [{
+        "email" : "teszt@email.com",
+        "phone" : "06301114444"
+      }]
+    }
+  ]
+}
+
+###
+
+# Person törlése
+DELETE http://localhost:8080/person/1
+
