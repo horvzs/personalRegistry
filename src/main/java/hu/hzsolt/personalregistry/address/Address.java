@@ -4,7 +4,10 @@ import hu.hzsolt.personalregistry.contact.Contact;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import java.util.Set;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * @author zshorvath
@@ -16,8 +19,8 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty(message = "ZipCode cannot be empty")
-    private String zipCode;
+    @NotNull(message = "ZipCode cannot be null")
+    private int zipCode;
 
     @NotEmpty(message = "City cannot be empty")
     private String city;
@@ -30,7 +33,7 @@ public class Address {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
-    private Set<Contact> contacts;
+    private List<Contact> contacts;
 
     public Long getId() {
         return id;
@@ -41,11 +44,11 @@ public class Address {
         return this;
     }
 
-    public String getZipCode() {
+    public int getZipCode() {
         return zipCode;
     }
 
-    public Address setZipCode(String zipCode) {
+    public Address setZipCode(int zipCode) {
         this.zipCode = zipCode;
         return this;
     }
@@ -77,12 +80,27 @@ public class Address {
         return this;
     }
 
-    public Set<Contact> getContacts() {
+    public List<Contact> getContacts() {
         return contacts;
     }
 
-    public Address setContacts(Set<Contact> contacts) {
+    public Address setContacts(List<Contact> contacts) {
         this.contacts = contacts;
         return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Address address = (Address) o;
+        return zipCode == address.zipCode && Objects.equals(id, address.id) &&
+                Objects.equals(city, address.city) && Objects.equals(street, address.street) &&
+                addressType == address.addressType && Objects.equals(contacts, address.contacts);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, zipCode, city, street, addressType, contacts);
     }
 }
