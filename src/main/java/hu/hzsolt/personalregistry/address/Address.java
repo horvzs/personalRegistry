@@ -3,6 +3,7 @@ package hu.hzsolt.personalregistry.address;
 import hu.hzsolt.personalregistry.contact.Contact;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.Set;
 
 /**
@@ -15,14 +16,19 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotEmpty(message = "ZipCode cannot be empty")
     private String zipCode;
+
+    @NotEmpty(message = "City cannot be empty")
     private String city;
+
+    @NotEmpty(message = "Street cannot be empty")
     private String street;
 
     @Enumerated(EnumType.STRING)
     private AddressType addressType;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
     private Set<Contact> contacts;
 
