@@ -5,7 +5,8 @@ import hu.hzsolt.personalregistry.address.Address;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
-import java.util.Set;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * @author zshorvath
@@ -23,8 +24,8 @@ public class Person {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "person_id")
-    @Size(min = 1,max = 2)
-    private Set<Address> addresses;
+    @Size(min = 1, max = 2)
+    private List<Address> addresses;
 
     public Long getId() {
         return id;
@@ -44,12 +45,26 @@ public class Person {
         return this;
     }
 
-    public Set<Address> getAddresses() {
+    public List<Address> getAddresses() {
         return addresses;
     }
 
-    public Person setAddresses(Set<Address> addresses) {
+    public Person setAddresses(List<Address> addresses) {
         this.addresses = addresses;
         return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return Objects.equals(id, person.id) && Objects.equals(name, person.name) &&
+                Objects.equals(addresses, person.addresses);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, addresses);
     }
 }
