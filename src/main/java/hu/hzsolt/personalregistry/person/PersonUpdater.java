@@ -80,4 +80,8 @@ public class PersonUpdater {
         }
         return contactsFromDb;
     }
+
+    public void asd() {
+
+    }
 }
