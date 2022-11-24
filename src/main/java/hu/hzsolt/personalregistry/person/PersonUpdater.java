@@ -81,8 +81,4 @@ public class PersonUpdater {
         }
         return contactsFromDb;
     }
-
-    public void asd() {
-        System.out.println("ASDsxfafaasdadasdasaaaaa");
-    }
 }
