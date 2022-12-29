@@ -21,7 +21,7 @@ import java.util.Optional;
  * @author zshorvath
  * created on 31/10/2022
  */
-@ExtendWith(MockitoExtension.class)
+
 public class PersonUpdaterTest {
 
     @Mock
