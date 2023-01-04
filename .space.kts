@@ -6,6 +6,7 @@ job("Build, tests, and publish Docker") {
                 ./gradlew clean build
                 echo Copy build dir...
             	cp -rv build/libs /mnt/space/share
+                pwd
             """
         }
     }
