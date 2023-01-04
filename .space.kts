@@ -4,8 +4,8 @@ job("Build, tests, and publish Docker") {
             content = """
             	echo Build and run Tests...
                 ./gradlew clean build
-                echo Copy target dir...
-            	cp -rv target /mnt/space/share
+                echo Copy build dir...
+            	cp -rv build /mnt/space/share
             """
         }
     }
