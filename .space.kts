@@ -22,6 +22,7 @@ job("Build, tests, and publish Docker") {
                 content = """
                     echo Copy build dir...
                     cp -r /mnt/space/share docker
+                    pwd
                 """
             }
 
