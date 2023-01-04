@@ -1,15 +1,10 @@
-job("Build, tests, and publish Docker") {
+job("Build and publish Docker") {
     host("Build and push a Docker image") {
-        this@job.container("amazoncorretto:17-alpine") {
-            this@host.shellScript {
-                content = """
-            	echo Build and run Tests...
+        shellScript {
+            content = """
+                echo Build and run Tests...
                 ./gradlew clean build
-                echo Copy build dir...
-            	cp -rv build/libs /mnt/space/share
-                pwd
-            """
-            }
+               """
         }
         dockerBuildPush {
             // by default, the step runs not only 'docker build' but also 'docker push'
@@ -18,14 +13,6 @@ job("Build, tests, and publish Docker") {
 
             // path to Docker context (by default, context is working dir)
             context = "docker"
-            this@host.shellScript {
-                content = """
-                    echo Copy build dir...
-                    cp -r /mnt/space/share docker
-                    pwd
-                """
-            }
-
             // path to Dockerfile relative to the project root
             // if 'file' is not specified, Docker will look for it in 'context'/Dockerfile
             file = "docker/Dockerfile"
