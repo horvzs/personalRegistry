@@ -1,46 +1,18 @@
-job("Build and test") {
-    container("amazoncorretto:17-alpine") {
+job("Build and push Docker") {
+    // both 'host.shellScript' and 'host.dockerBuildPush' run on the same host
+    host("Build artifacts and a Docker image") {
+        // Gradle build creates artifacts in ./build
         shellScript {
             content = """
-            	echo Build and run Tests...
-                ./gradlew clean build
-                docker volume create --name lib
-                echo Copy build dir...
-            	cp -rv build/libs -v lib
+                ./gradlew build
             """
         }
-    }
-}
 
-job("Build and publish Docker") {
-    host("Build and push a Docker image") {
         dockerBuildPush {
-            // by default, the step runs not only 'docker build' but also 'docker push'
-            // to disable pushing, add the following line:
-            // push = false
+            // Note that if Dockerfile is in the project root, we don't specify its path.
+            // We also imply that Dockerfile takes artifacts from ./build and puts them to image
+            // e.g. with 'ADD /build/app.jar /root/home/app.jar'
 
-            // path to Docker context (by default, context is working dir)
-            // context = "docker"
-            this@host.shellScript {
-                content = """
-                    echo Copy build dir...
-                    cp -r -v lib docker
-                    pwd
-                """
-            }
-
-            // path to Dockerfile relative to the project root
-            // if 'file' is not specified, Docker will look for it in 'context'/Dockerfile
-            file = "docker/Dockerfile"
-            // build-time variables
-            args["HTTP_PROXY"] = "http://10.20.30.2:1234"
-            // image labels
-            labels["vendor"] = "horvathzsolt"
-            // to add a raw list of additional build arguments, use
-            // extraArgsForBuildCommand = listOf("...")
-            // to add a raw list of additional push arguments, use
-            // extraArgsForPushCommand = listOf("...")
-            // image tags
             val spaceRepo = "horvathzsolt.registry.jetbrains.space/p/containers/containers/personalregistry"
             // image tags for 'docker push'
             tags {
