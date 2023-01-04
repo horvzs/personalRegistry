@@ -4,7 +4,11 @@
 * For more info, see https://www.jetbrains.com/help/space/automation.html
 */
 
-job("Build and push Docker") {
+job("Build and run tests") {
+   gradlew("amazoncorretto:17-alpine", "build")
+}
+
+sequential ("Build and push Docker") {
     host("Build and push a Docker image") {
         dockerBuildPush {
             // by default, the step runs not only 'docker build' but also 'docker push'
