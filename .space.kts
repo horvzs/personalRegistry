@@ -1,10 +1,4 @@
-/**
-* JetBrains Space Automation
-* This Kotlin-script file lets you automate build activities
-* For more info, see https://www.jetbrains.com/help/space/automation.html
-*/
-
-job ("Build, tests, and publish Docker") {
+job("Build, tests, and publish Docker") {
     container("amazoncorretto:17-alpine") {
         shellScript {
             content = """
@@ -18,11 +12,11 @@ job ("Build, tests, and publish Docker") {
     
     host("Build and push a Docker image") {
         dockerBuildPush {
-            shellScript {
+            this@host.shellScript {
                 content = """
-            	echo Copy files from previous step
-            	cp -r /mnt/space/share docker
-            """
+                    echo Copy files from previous step
+                    cp -r /mnt/space/share docker
+                """
             }
             // by default, the step runs not only 'docker build' but also 'docker push'
             // to disable pushing, add the following line:
