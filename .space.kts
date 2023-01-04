@@ -5,11 +5,11 @@ job("Build, tests, and publish Docker") {
             	echo Build and run Tests...
                 ./gradlew clean build
                 echo Copy build dir...
-            	cp -rv build /mnt/space/share
+            	cp -rv build/libs /mnt/space/share
             """
         }
     }
-    
+
     host("Build and push a Docker image") {
         dockerBuildPush {
             // by default, the step runs not only 'docker build' but also 'docker push'
@@ -17,10 +17,17 @@ job("Build, tests, and publish Docker") {
             // push = false
 
             // path to Docker context (by default, context is working dir)
-            // context = "docker"
+            context = "docker"
+            this@host.shellScript {
+                content = """
+                    echo Copy build dir...
+                    cp -r /mnt/space/share docker
+                """
+            }
+
             // path to Dockerfile relative to the project root
             // if 'file' is not specified, Docker will look for it in 'context'/Dockerfile
-            file = "./Dockerfile"
+            file = "docker/Dockerfile"
             // build-time variables
             args["HTTP_PROXY"] = "http://10.20.30.2:1234"
             // image labels
