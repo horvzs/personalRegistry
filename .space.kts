@@ -1,17 +1,16 @@
 job("Build, tests, and publish Docker") {
-    container("amazoncorretto:17-alpine") {
-        shellScript {
-            content = """
+    host("Build and push a Docker image") {
+        this@job.container("amazoncorretto:17-alpine") {
+            this@host.shellScript {
+                content = """
             	echo Build and run Tests...
                 ./gradlew clean build
                 echo Copy build dir...
             	cp -rv build/libs /mnt/space/share
                 pwd
             """
+            }
         }
-    }
-
-    host("Build and push a Docker image") {
         dockerBuildPush {
             // by default, the step runs not only 'docker build' but also 'docker push'
             // to disable pushing, add the following line:
