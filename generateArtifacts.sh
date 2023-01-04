@@ -3,4 +3,10 @@ echo $PWD
 cd $PWD
 cd ../
 echo $PWD
-gradlew clean build
+gradle clean build
+STATUS=$?
+if [ $STATUS -eq 0 ]; then
+echo "Deployment Successful"
+else
+echo "Deployment Failed"
+fi
