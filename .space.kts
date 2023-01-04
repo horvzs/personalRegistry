@@ -16,13 +16,14 @@ job ("Build, tests, and publish Docker") {
         }
     }
     
-    host("Build and push a Docker image") {
-        beforeBuildScript {
-            content = """
+    beforeBuildScript {
+        content = """
             	echo Copy files from previous step
             	cp -r /mnt/space/share docker
             """
-        }
+    }
+
+    host("Build and push a Docker image") {
         dockerBuildPush {
             // by default, the step runs not only 'docker build' but also 'docker push'
             // to disable pushing, add the following line:
