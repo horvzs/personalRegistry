@@ -13,6 +13,7 @@ job ("Build, tests, and publish Docker") {
                 echo Copy target dir...
             	cp -rv target /mnt/space/share
             """
+        }
     }
     
     host("Build and push a Docker image") {
