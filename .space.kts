@@ -5,11 +5,14 @@
 */
 
 job ("Build, tests, and publish Docker") {
-    gradlew("amazoncorretto:17-alpine", "build")
-    shellScript {
-    	content = """
-        	cp -rv target /mnt/space/share
-        """
+    container("amazoncorretto:17-alpine") {
+        shellScript {
+            content = """
+            	echo Build and run Tests...
+                ./gradlew clean build
+                echo Copy target dir...
+            	cp -rv target /mnt/space/share
+            """
     }
     
     host("Build and push a Docker image") {
