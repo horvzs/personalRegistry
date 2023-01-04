@@ -5,7 +5,7 @@ job("Build, test and create docker image") {
             echo Build and run tests...
             ./gradlew clean build
             echo Copy build dir to share path
-            cp -rv build/libs ${"$"}"JB_SPACE_FILE_SHARE_PATH"/share
+            cp -rv build/libs ${"$"}JB_SPACE_FILE_SHARE_PATH/share
         """
         }
     }
