@@ -7,10 +7,10 @@ job("Build, test and publish Docker") {
             // push = false
 
             // path to Docker context (by default, context is working dir)
-            context = "docker"
+            // context = "docker"
             // path to Dockerfile relative to the project root
             // if 'file' is not specified, Docker will look for it in 'context'/Dockerfile
-            file = "docker/Dockerfile"
+            file = "./Dockerfile"
             // build-time variables
             args["HTTP_PROXY"] = "http://10.20.30.2:1234"
             // image labels
