@@ -15,7 +15,7 @@ job("Build, tests, and publish Docker") {
             this@host.shellScript {
                 content = """
                     echo Copy files from previous step
-                    cp -r /mnt/space/share docker
+                    cp -r /mnt/space/share/build docker
                 """
             }
             // by default, the step runs not only 'docker build' but also 'docker push'
