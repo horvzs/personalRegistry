@@ -4,13 +4,22 @@
 * For more info, see https://www.jetbrains.com/help/space/automation.html
 */
 
-job("Build and run tests") {
+job ("Build, tests, and publish Docker") {
     gradlew("amazoncorretto:17-alpine", "build")
-}
-
-job ("Build and push Docker") {
+    shellScript {
+    	content = """
+        	cp -rv target /mnt/space/share
+        """
+    }
+    
     host("Build and push a Docker image") {
         dockerBuildPush {
+            beforeBuildScript {
+                content = """
+                	echo Copy files from previous step
+               		cp -r /mnt/space/share docker
+                """
+            }
             // by default, the step runs not only 'docker build' but also 'docker push'
             // to disable pushing, add the following line:
             // push = false
@@ -29,9 +38,11 @@ job ("Build and push Docker") {
             // to add a raw list of additional push arguments, use
             // extraArgsForPushCommand = listOf("...")
             // image tags
+            val spaceRepo = "horvathzsolt.registry.jetbrains.space/p/containers/containers/personalregistry"
+            // image tags for 'docker push'
             tags {
-                // use current job run number as a tag - '0.0.run_number'
-                +"horvathzsolt.registry.jetbrains.space/p/containers/containers/personalregistry:1.0.${"$"}JB_SPACE_EXECUTION_NUMBER"
+                +"$spaceRepo:1.0.${"$"}JB_SPACE_EXECUTION_NUMBER"
+                +"$spaceRepo:latest"
             }
         }
     }
