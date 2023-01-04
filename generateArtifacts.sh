@@ -3,7 +3,7 @@ echo $PWD
 cd $PWD
 cd ../
 echo $PWD
-gradle wrapper clean build
+./gradlew build
 STATUS=$?
 if [ $STATUS -eq 0 ]; then
 echo "Deployment Successful"
