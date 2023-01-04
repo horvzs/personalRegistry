@@ -1,5 +1,5 @@
 job("Build, test and create docker image") {
-    container("amazoncorretto:17-alpine", "build") {
+    container("amazoncorretto:17-alpine") {
         shellScript {
             content = """
             echo Build and run tests...
