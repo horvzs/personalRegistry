@@ -5,7 +5,7 @@ job("Build, test and create docker image") {
             echo Build and run tests...
             ./gradlew clean build
             echo Copy build dir to share path
-            cp -rv build/libs ${"$"}JB_SPACE_FILE_SHARE_PATH/share
+            cp -rv build/libs ${"$"}JB_SPACE_FILE_SHARE_PATH
         """
         }
     }
@@ -19,7 +19,7 @@ job("Build, test and create docker image") {
             this@host.shellScript {
                 content = """
                     echo Copy build dir from share path
-                    cp -r ${"$"}"JB_SPACE_FILE_SHARE_PATH"/share
+                    cp -r ${"$"}JB_SPACE_FILE_SHARE_PATH
                 """.trimIndent()
             }
             val spaceRepo = "horvathzsolt.registry.jetbrains.space/p/containers/containers/personalregistry"
