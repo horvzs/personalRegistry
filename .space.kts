@@ -1,11 +1,8 @@
-job("Build and publish Docker") {
+job("Build, test and publish Docker") {
+    job("Build and run tests") {
+        gradlew("amazoncorretto:17-alpine", "build")
+    }
     host("Build and push a Docker image") {
-        shellScript {
-            content = """
-                echo Build and run Tests...
-                ./gradlew clean build
-               """
-        }
         dockerBuildPush {
             // by default, the step runs not only 'docker build' but also 'docker push'
             // to disable pushing, add the following line:
